@@ -2,7 +2,6 @@ import { promises as fs, watch } from 'fs';
 import { join } from 'path';
 
 import { Config as BaseConfig, Thing } from '~classes/Thing';
-import { OnOff } from '~classes/types';
 
 import { Switch } from './Switch';
 
