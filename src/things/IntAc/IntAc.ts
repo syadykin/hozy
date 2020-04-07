@@ -42,8 +42,11 @@ export class IntAc extends Thing<Config> {
   protected read = async (): Promise<void> => {
     const files = await fs.readdir(this.config.path);
     await Promise.all(Object.keys(this.switches).map(
-      (ip: string): Promise<OnOff> =>
-        this.switches[ip].change({ enabled: files.includes(ip) }),
+      (ip: string): Promise<OnOff> => {
+        const enabled = files.includes(ip);
+        this.write(ip, enabled, true);
+        return this.switches[ip].change({ enabled });
+      }
     ));
 
     watch(this.config.path).on('change', async (event: string, ip: string) => {
@@ -69,11 +72,15 @@ export class IntAc extends Thing<Config> {
     }
   }
 
-  write = async (ip: string, enabled: boolean): Promise<void> => {
+  write = async (
+    ip: string,
+    enabled: boolean,
+    force = false,
+  ): Promise<void> => {
     const file = join(this.config.path, ip);
     const exists = await this.test(file);
 
-    if (enabled && !exists) {
+    if (enabled && (!exists || force)) {
       await (await fs.open(file, 'w')).close();
     } else if (!enabled && exists) {
       await fs.unlink(file);

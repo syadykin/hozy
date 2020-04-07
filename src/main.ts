@@ -68,11 +68,13 @@ things.forEach((def) => {
       entityConfig.stat_t = '~/onoff/state';
 
       entity.on('state', (state) => {
-        mqtt.publish(
-          `${prefix}/${options.path}/onoff/state`,
-          state.enabled ? 'ON' : 'OFF',
-          { qos: 0, retain: true },
-        )
+        if (state.enabled !== undefined) {
+          mqtt.publish(
+            `${prefix}/${options.path}/onoff/state`,
+            state.enabled ? 'ON' : 'OFF',
+            { qos: 0, retain: true },
+          );
+        }
       });
     }
 
@@ -81,11 +83,13 @@ things.forEach((def) => {
       entityConfig.bri_stat_t = '~/brightness/state';
 
       entity.on('state', (state) => {
-        mqtt.publish(
-          `${prefix}/${options.path}/brightness/state`,
-          state.brightness.toString(),
-          { qos: 0, retain: true },
-        )
+        if (state.brightness !== undefined) {
+          mqtt.publish(
+            `${prefix}/${options.path}/brightness/state`,
+            state.brightness.toString(),
+            { qos: 0, retain: true },
+          );
+        }
       });
     }
 
