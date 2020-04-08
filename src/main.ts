@@ -9,7 +9,7 @@ moduleAlias.addAliases({
 
 import * as Mqtt from 'mqtt';
 import * as config from 'config';
-import { find, findKey } from 'lodash';
+import { cloneDeep, find, findKey } from 'lodash';
 
 import { isOnOff, isBrightness } from '~classes/types';
 import { Entity } from '~classes/Entity';
@@ -45,7 +45,7 @@ things.forEach((def) => {
   const { type, config, device } = def;
   const [ path, driver ] = type.split('.');
   const Thing = require(`~things/${path}`)[driver];
-  const thing = new Thing(config);
+  const thing = new Thing(cloneDeep(config));
 
   Array.prototype.push.apply(entities, thing.entities);
 

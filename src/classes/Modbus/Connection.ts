@@ -16,7 +16,7 @@ import {
 
 import { Modbus } from './Modbus';
 
-const delay = 300;
+const delay = 50;
 
 export class Connection extends EventEmitter {
   private type: ConnectionType;
@@ -168,7 +168,7 @@ export class Connection extends EventEmitter {
   ): Promise<void> => {
     try {
       if (!this.connection.isOpen) {
-        console.error('Lost connection, reconnect...');
+        console.error(`${this.port} (re)connect`);
         await new Promise((ok) => this.connection.close(ok));
         await this.connect();
       }

@@ -91,7 +91,7 @@ export abstract class Modbus extends Thing<Config> {
           }
         }
       } catch (e) {
-        console.error(e);
+        console.error(`${this.config.port}~${this.config.id}: ${e.message}`);
       }
     }
 
