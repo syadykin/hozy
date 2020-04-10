@@ -11,24 +11,44 @@ import {
 
 import {
   ModbusOptions,
-  ConnectionType, ConnectionCallback,
+  ConnectionType, ModbusCallback,
 } from './types';
 
-import { Modbus } from './Modbus';
+import { Thing } from './types';
+
+interface Connections {
+  [port: string]: Modbus;
+}
+
 
 const delay = 50;
 
-export class Connection extends EventEmitter {
+export class Modbus extends EventEmitter {
+  private static services: Connections = { };
+
   private type: ConnectionType;
   private port: string;
   private options?: ModbusOptions;
 
-  private devices: Modbus[] = [];
+  private devices: Thing[] = [];
   private current = 0;
 
   private connection: ModbusRTUType;
-  private queue: AsyncPriorityQueue<ConnectionCallback>;
+  private queue: AsyncPriorityQueue<ModbusCallback>;
   private timer: NodeJS.Timeout;
+
+  public static get(
+    type: ConnectionType,
+    port: string,
+    options: ModbusOptions,
+  ): Modbus {
+    // TODO: warn if type/options differ
+    if (!this.services[port]) {
+      this.services[port] = new Modbus(type, port, options);
+    }
+
+    return this.services[port];
+  }
 
   constructor(
     type: ConnectionType,
@@ -46,7 +66,7 @@ export class Connection extends EventEmitter {
     this.queue.drain(this.drain);
   }
 
-  public write = (func: ConnectionCallback): void => {
+  public write = (func: ModbusCallback): void => {
     this.queue.push(func, 1);
   }
 
@@ -127,7 +147,7 @@ export class Connection extends EventEmitter {
   }
 
   public attach = (
-    device: Modbus,
+    device: Thing,
   ): void => {
     this.devices.push(device);
     if (this.devices.length === 1) {
@@ -136,7 +156,7 @@ export class Connection extends EventEmitter {
   }
 
   public detach = (
-    device: Modbus,
+    device: Thing,
   ): void => {
     const idx = this.devices.indexOf(device);
     if (idx !== -1) {
@@ -163,7 +183,7 @@ export class Connection extends EventEmitter {
   }
 
   private worker = async (
-    func: ConnectionCallback,
+    func: ModbusCallback,
     done: () => void,
   ): Promise<void> => {
     try {

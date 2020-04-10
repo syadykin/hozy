@@ -1,19 +1,12 @@
-import { Thing } from '~classes/Thing';
-
-import {
-  Config,
-  RegisterConfig, RegisterData, RegisterType,
-} from './types';
-import { Connection } from './Connection';
 import { ModbusRTU } from 'modbus-serial/ModbusRTU';
 
-interface Connections {
-  [port: string]: Connection;
-}
+import { Thing } from '~classes/Thing';
+import { Modbus as ModbusService } from '~services';
+import { Thing as ModbusThing } from '~services/Modbus';
 
-const connections: Connections = {};
+import { Config, RegisterConfig, RegisterData, RegisterType } from './types';
 
-export declare interface Modbus extends Thing<Config> {
+export declare interface Modbus extends Thing<Config>, ModbusThing {
   on<T extends RegisterType>(
     event: 'get',
     handler: (type: T, idx: number, value: RegisterData[T][0]) => void,
@@ -24,8 +17,8 @@ export declare interface Modbus extends Thing<Config> {
   ): this;
 }
 
-export abstract class Modbus extends Thing<Config> {
-  protected connection: Connection;
+export abstract class Modbus extends Thing<Config> implements ModbusThing {
+  protected service: ModbusService;
   protected registers: RegisterConfig;
   protected data: RegisterData;
 
@@ -37,11 +30,8 @@ export abstract class Modbus extends Thing<Config> {
 
     const { type, port, options } = this.config;
 
-    if (!connections[port]) {
-      connections[port] = new Connection(type, port, options);
-    }
-    this.connection = connections[port];
-    this.connection.attach(this);
+    this.service = ModbusService.get(type, port, options);
+    this.service.attach(this);
 
     this.registers = registers;
 
@@ -105,7 +95,7 @@ export abstract class Modbus extends Thing<Config> {
     number: number,
     value: RegisterData[T][0],
   ): Promise<void> =>
-    this.connection.write(async (connection): Promise<void> => {
+    this.service.write(async (connection: ModbusRTU): Promise<void> => {
       connection.setID(this.config.id);
 
       switch (type) {
@@ -126,7 +116,7 @@ export abstract class Modbus extends Thing<Config> {
     start: number,
     value: RegisterData[T],
   ): Promise<void> =>
-    this.connection.write(async (connection): Promise<void> => {
+    this.service.write(async (connection: ModbusRTU): Promise<void> => {
       connection.setID(this.config.id);
 
       switch (type) {
