@@ -1,30 +1,28 @@
-import ModbusRTU from 'modbus-serial';
-import {
-  SerialPortOptions, SerialPortUnixPlatformOptions, TcpPortOptions,
-  UdpPortOptions, TcpRTUPortOptions, TelnetPortOptions,
-} from 'modbus-serial/ModbusRTU';
+import { Config as ThingConfig } from '~classes/Thing';
+import { ConnectionType, ModbusOptions } from '~providers/Modbus';
 
-export enum ConnectionType {
-  RTU = 'RTU',
-  TCP = 'TCP',
-  UDP = 'UDP',
-  RTUBuffered = 'RTUBuffered',
-  TcpRTUBuffered = 'TcpRTUBuffered',
-  Telnet = 'Telnet',
-  AsciiSerial = 'AsciiSerial',
+export interface Config extends ThingConfig {
+  type: ConnectionType;
+  port: string;
+  options?: ModbusOptions;
+  id: number;
 }
 
-export type ModbusOptions =
-  | SerialPortOptions
-  | SerialPortUnixPlatformOptions
-  | TcpPortOptions
-  | UdpPortOptions
-  | TcpRTUPortOptions
-  | TelnetPortOptions;
-
-
-export interface Thing {
-  read: (connection: ModbusRTU) => Promise<void>;
+export enum RegisterType {
+  coil = 'coil',
+  holding = 'holding',
 }
 
-export type ModbusCallback = (connection: ModbusRTU) => Promise<void>;
+export interface Register {
+  start?: number;
+  length: number;
+}
+
+export type RegisterConfig = {
+  [type in RegisterType]?: Register;
+}
+
+export type RegisterData = {
+  [RegisterType.coil]?: boolean[];
+  [RegisterType.holding]?: number[];
+}

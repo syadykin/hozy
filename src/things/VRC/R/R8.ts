@@ -1,4 +1,4 @@
-import { Config } from '~classes/Modbus/types';
+import { Config } from '~services/Modbus';
 import { R } from './R';
 
 export class R8 extends R {

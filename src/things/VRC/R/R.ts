@@ -1,6 +1,5 @@
-import { Modbus } from '~classes/Modbus';
-import { Config, RegisterType } from '~classes/Modbus/types';
-import { Info } from '~classes/Thing/types';
+import Modbus, { Config, RegisterType } from '~services/Modbus';
+import { Info } from '~classes/Thing';
 
 import { Switch } from './Switch';
 

@@ -1,8 +1,8 @@
 import { Entity } from '~classes/Entity';
-import { RegisterType, RegisterData } from '~classes/Modbus';
+import { Brightness, OnOff } from '~classes/types';
+import { RegisterType, RegisterData } from '~services/Modbus';
 
 import { L } from './L';
-import { Brightness, OnOff } from '~classes/types';
 
 type TDimmer = OnOff & Brightness;
 

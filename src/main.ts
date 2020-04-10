@@ -38,7 +38,7 @@ interface Options {
 }
 
 const things = config.get('things') as Config[];
-const devices = config.get('devices') as Options[]
+const devices = config.get('devices') as Options[];
 const entities: Entity[] = [];
 
 things.forEach((def) => {
@@ -104,7 +104,7 @@ things.forEach((def) => {
 mqtt.on('message', (topic, payload) => {
   const id = findKey(
     devices,
-    (options) => topic.indexOf(`${prefix}/${options.path}/`) === 0,
+    (options: Options) => topic.indexOf(`${prefix}/${options.path}/`) === 0,
   );
 
   if (id) {

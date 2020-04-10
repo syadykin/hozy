@@ -1,4 +1,4 @@
-import { Config } from '~classes/Modbus/types';
+import { Config } from '~services/Modbus';
 import { L } from './L';
 
 export class L2 extends L {

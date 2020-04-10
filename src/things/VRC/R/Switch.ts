@@ -1,8 +1,8 @@
-import { RegisterType, RegisterData } from '~classes/Modbus/types';
+import { RegisterType, RegisterData } from '~services/Modbus';
 import { Entity } from '~classes/Entity';
+import { OnOff } from '~classes/types';
 
 import { R } from './R';
-import { OnOff } from '~classes/types';
 
 export class Switch extends Entity<R, OnOff> {
   protected idx: number;

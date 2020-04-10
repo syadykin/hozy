@@ -1,1 +1,2 @@
-export { IntAc } from './IntAc';
+import { IntAc } from './IntAc';
+export { IntAc };
