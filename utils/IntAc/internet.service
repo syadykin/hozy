@@ -1,0 +1,16 @@
+[Unit]
+Description=internet toggler
+Requires=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/srv/data/internet
+ExecStart=/srv/build/hozy/utils/IntAc/watch
+TimeoutSec=30
+RestartSec=2s
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
