@@ -2,10 +2,12 @@ import * as moduleAlias from 'module-alias';
 
 moduleAlias.addPath(__dirname + '/build/src');
 moduleAlias.addPath(__dirname);
-moduleAlias.addAliases({
-  '~things': 'things',
-  '~classes': 'classes',
-});
+moduleAlias.addAliases(
+  ['classes', 'services', 'providers', 'things'].reduce((t, c) => ({
+    ...t,
+    [`~${c}`]: c,
+  }), {}),
+);
 
 import * as Mqtt from 'mqtt';
 import * as config from 'config';
