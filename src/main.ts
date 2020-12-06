@@ -13,7 +13,7 @@ import * as Mqtt from 'mqtt';
 import * as config from 'config';
 import { cloneDeep, find, findKey } from 'lodash';
 
-import { isOnOff, isBrightness } from '~classes/types';
+import { isOnOff, isBrightness, isHueSaturation } from '~classes/types';
 import { Entity } from '~classes/Entity';
 
 const prefix = config.get('mqtt.prefix');
@@ -95,6 +95,21 @@ things.forEach((def) => {
       });
     }
 
+    if (isHueSaturation(entity)) {
+      entityConfig.hs_cmd_t = '~/huesaturation/set';
+      entityConfig.hs_stat_t = '~/huesaturation/state';
+
+      entity.on('state', (state) => {
+        if (state.hue !== undefined && state.saturation !== undefined) {
+          mqtt.publish(
+            `${prefix}/${options.path}/huesaturation/state`,
+            `${state.hue},${state.saturation}`,
+            { qos: 0, retain: true },
+          );
+        }
+      });
+    }
+
     mqtt.publish(
       `${prefix}/${options.path}/config`,
       JSON.stringify(entityConfig),
@@ -116,6 +131,9 @@ mqtt.on('message', (topic, payload) => {
         entity.change({ enabled: payload.toString() === 'ON' });
       } else if (topic.indexOf('/brightness/') !== -1) {
         entity.change({ brightness: parseInt(payload.toString(), 10) });
+      } else if (topic.indexOf('/huesaturation/') !== -1) {
+        const [ hue, saturation ] = payload.toString().split(',').map((n) => parseInt(n, 10));
+        entity.change({ hue, saturation });
       }
     }
   }
