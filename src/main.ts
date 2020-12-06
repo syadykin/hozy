@@ -96,6 +96,7 @@ things.forEach((def) => {
     }
 
     if (isHueSaturation(entity)) {
+      entityConfig.bri_scl = '100'; // well not the best place
       entityConfig.hs_cmd_t = '~/huesaturation/set';
       entityConfig.hs_stat_t = '~/huesaturation/state';
 
