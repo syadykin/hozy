@@ -21,7 +21,7 @@ interface Connections {
 }
 
 
-const delay = 50;
+const delay = 500;
 
 export class Modbus extends EventEmitter {
   private static services: Connections = { };

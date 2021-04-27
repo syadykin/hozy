@@ -41,7 +41,7 @@ export class IntAc extends Thing<Config> {
   protected read = async (): Promise<void> => {
     const files = await fs.readdir(this.config.path);
     Object.keys(this.switches).forEach(
-      (ip: string): void => this.switches[ip].set(files.includes(ip)),
+      (ip: string): void => this.switches[ip].set(!files.includes(ip)),
     );
 
     watch(this.config.path).on('change', async (event: string, ip: string) => {
@@ -51,9 +51,9 @@ export class IntAc extends Thing<Config> {
 
       try {
         await fs.access(join(this.config.path, ip));
-        this.switches[ip].set(true);
-      } catch (e) {
         this.switches[ip].set(false);
+      } catch (e) {
+        this.switches[ip].set(true);
       }
     });
   }
@@ -74,9 +74,9 @@ export class IntAc extends Thing<Config> {
     const file = join(this.config.path, ip);
     const exists = await this.test(file);
 
-    if (enabled && !exists) {
+    if (!enabled && !exists) {
       await (await fs.open(file, 'w')).close();
-    } else if (!enabled && exists) {
+    } else if (enabled && exists) {
       await fs.unlink(file);
     }
   }

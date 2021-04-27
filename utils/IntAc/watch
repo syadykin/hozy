@@ -28,21 +28,21 @@ help() {
 
 append() {
   ip=$1
-  $iptables -t nat -A POSTROUTING -o $interface -j MASQUERADE -s $ip 2>/dev/null
-  echo $ip on
+  $iptables -I FORWARD 1 -o $interface -j DROP -s $ip 2>/dev/null
+  echo $ip off
 }
 
 delete() {
   ip=$1
-  $iptables -t nat -D POSTROUTING -o $interface -j MASQUERADE -s $ip 2>/dev/null
-  echo $ip off
+  $iptables -D FORWARD -o $interface -j DROP -s $ip 2>/dev/null
+  echo $ip on
 }
 
 apply() {
   file="$1"
   ip=$(basename "$file")
 
-  $iptables -t nat -C POSTROUTING -o $interface -j MASQUERADE -s $ip 2>/dev/null
+  $iptables -C FORWARD -o $interface -j DROP -s $ip 2>/dev/null
   present=$?
 
   if [ -e "$file" ] && [ $present = "1" ]; then
