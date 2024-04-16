@@ -6,62 +6,61 @@ things:
   - type: VRC.R8
     config:
       id: 2
-      type: Telnet
-      port: 10.42.0.2:9761
+      type: RTU
+      port: /dev/serial/by-path/pci-0000:00:14.0-usb-0:5.1.1:1.0-port0
+      options:
+        baudRate: 9600
     device:
       name: 'VRC-R8 (id: 2)'
       manufacturer: VKmodule
       model: VRC-R8
-      identifiers: [ 'vkmodule', 'modbus', 2 ]
+      identifiers: [ 'vkmodule-modbus-2' ]
   - type: VRC.R8
     config:
       id: 3
-      type: Telnet
-      port: 10.42.0.2:9761
+      type: RTU
+      port: /dev/serial/by-path/pci-0000:00:14.0-usb-0:5.1.1:1.0-port0
+      options:
+        baudRate: 9600
     device:
       name: 'VRC-R8 (id: 3)'
       manufacturer: VKmodule
       model: VRC-R8
-      identifiers: [ 'vkmodule', 'modbus', 3 ]
+      identifiers: [ 'vkmodule-modbus-3' ]
   - type: VRC.L2
     config:
       id: 4
-      type: Telnet
-      port: 10.42.0.2:9761
+      type: RTU
+      port: /dev/serial/by-path/pci-0000:00:14.0-usb-0:5.1.2:1.0-port0
+      options:
+        baudRate: 38400
     device:
       name: 'VRC-L2 (id: 4)'
       manufacturer: VKmodule
       model: VRC-L2
-      identifiers: [ 'vkmodule', 'modbus', 4 ]
+      identifiers: [ 'vkmodule-modbus-4' ]
   - type: VRC.L2
     config:
       id: 5
-      type: Telnet
-      port: 10.42.0.2:9761
+      type: RTU
+      port: /dev/serial/by-path/pci-0000:00:14.0-usb-0:5.1.2:1.0-port0
+      options:
+        baudRate: 38400
     device:
       name: 'VRC-L2 (id: 5)'
       manufacturer: VKmodule
       model: VRC-L2
-      identifiers: [ 'vkmodule', 'modbus', 5 ]
+      identifiers: [ 'vkmodule-modbus-5' ]
   - type: IntAc.IntAc
     config:
-      path: /srv/data/internet
+      path: /var/home/hozy/data/internet
       ip:
         - 192.168.42.83
         - 192.168.42.62
         - 192.168.42.71
         - 192.168.42.53
-        - 192.168.42.81
-        - 192.168.42.61
-        - 192.168.42.51
-        - 192.168.42.91
-        - 192.168.42.84
-        - 192.168.42.54
-        - 192.168.42.72
         - 192.168.42.82
         - 192.168.42.56
-        - 192.168.42.85
-        - 192.168.42.52
         - 192.168.42.55
         - 192.168.42.86
         - 192.168.42.73
@@ -70,149 +69,138 @@ things:
       manufacturer: Stanyslav Yadykin
       model: v1.0
       identifiers: [ 'internet-toggler' ]
+#  - type: LEDim.LEDim
+#    config:
+#      id: 4
+#      type: RTU
+#      port: /dev/serial/by-path/pci-0000:00:14.0-usb-0:5.1.1:1.0-port0
+#      options:
+#        baudRate: 38400
+#    device:
+#      name: 'LEDim (id: 4)'
+#      manufacturer: Me
+#      model: LEDim
+#      identifiers: [ 'ledim', 'modbus', 4 ]
+#  - type: LEDim.LEDim
+#    config:
+#      id: 5
+#      type: RTU
+#      port: /dev/serial/by-path/pci-0000:00:14.0-usb-0:5.1.1:1.0-port0
+#      options:
+#        baudRate: 38400
+#    device:
+#      name: 'LEDim (id: 5)'
+#      manufacturer: Me
+#      model: LEDim
+#      identifiers: [ 'ledim', 'modbus', 5 ]
+#  - type: LEDim.LEDim
+#    config:
+#      id: 6
+#      type: RTU
+#      port: /dev/serial/by-path/pci-0000:00:14.0-usb-0:5.1.1:1.0-port0
+#      options:
+#        baudRate: 38400
+#    device:
+#      name: 'LEDim (id: 6)'
+#      manufacturer: Me
+#      model: LEDim
+#      identifiers: [ 'ledim', 'modbus', 6 ]
 
 devices:
-  /modbus/10.42.0.2:9761/2/0:
+  /modbus/dev.serial.by-path.pci-0000:00:14.0-usb-0:5.1.1:1.0-port0/2/0:
     path: switch/modbus-2/0
     name: storage_room_top
     uid: modbus-2-0
-  /modbus/10.42.0.2:9761/2/1:
+  /modbus/dev.serial.by-path.pci-0000:00:14.0-usb-0:5.1.1:1.0-port0/2/1:
     path: switch/modbus-2/1
     name: bath_room_2_top
     uid: modbus-2-1
-  /modbus/10.42.0.2:9761/2/2:
+  /modbus/dev.serial.by-path.pci-0000:00:14.0-usb-0:5.1.1:1.0-port0/2/2:
     path: switch/modbus-2/2
     name: sofias_room_top
     uid: modbus-2-2
-  /modbus/10.42.0.2:9761/2/3:
+  /modbus/dev.serial.by-path.pci-0000:00:14.0-usb-0:5.1.1:1.0-port0/2/3:
     path: switch/modbus-2/3
     name: parents_room_top
     uid: modbus-2-3
-  /modbus/10.42.0.2:9761/2/4:
+  /modbus/dev.serial.by-path.pci-0000:00:14.0-usb-0:5.1.1:1.0-port0/2/4:
     path: switch/modbus-2/4
     name: yehors_room_top
     uid: modbus-2-4
-  /modbus/10.42.0.2:9761/2/5:
+  /modbus/dev.serial.by-path.pci-0000:00:14.0-usb-0:5.1.1:1.0-port0/2/5:
     path: switch/modbus-2/5
     name: bath_room_2_fan
     uid: modbus-2-5
-  /modbus/10.42.0.2:9761/2/6:
+  /modbus/dev.serial.by-path.pci-0000:00:14.0-usb-0:5.1.1:1.0-port0/2/6:
     path: switch/modbus-2/6
     name: bath_room_2_mirror
     uid: modbus-2-6
-  /modbus/10.42.0.2:9761/3/0:
+  /modbus/dev.serial.by-path.pci-0000:00:14.0-usb-0:5.1.1:1.0-port0/3/0:
     path: switch/modbus-3/0
     name: kitchen_top
     uid: modbus-3-0
-  /modbus/10.42.0.2:9761/3/1:
+  /modbus/dev.serial.by-path.pci-0000:00:14.0-usb-0:5.1.1:1.0-port0/3/1:
     path: switch/modbus-3/1
     name: balcony_top
     uid: modbus-3-1
-  /modbus/10.42.0.2:9761/3/2:
+  /modbus/dev.serial.by-path.pci-0000:00:14.0-usb-0:5.1.1:1.0-port0/3/2:
     path: switch/modbus-3/2
     name: living_room_top
     uid: modbus-3-2
-  /modbus/10.42.0.2:9761/3/3:
+  /modbus/dev.serial.by-path.pci-0000:00:14.0-usb-0:5.1.1:1.0-port0/3/3:
     path: switch/modbus-3/3
     name: cabinet_top
     uid: modbus-3-3
-  /modbus/10.42.0.2:9761/3/4:
+  /modbus/dev.serial.by-path.pci-0000:00:14.0-usb-0:5.1.1:1.0-port0/3/4:
     path: switch/modbus-3/4
     name: hall_1_top
     uid: modbus-3-4
-  /modbus/10.42.0.2:9761/3/5:
+  /modbus/dev.serial.by-path.pci-0000:00:14.0-usb-0:5.1.1:1.0-port0/3/5:
     path: switch/modbus-3/5
     name: bath_room_1_top
     uid: modbus-3-5
-  /modbus/10.42.0.2:9761/3/6:
+  /modbus/dev.serial.by-path.pci-0000:00:14.0-usb-0:5.1.1:1.0-port0/3/6:
     path: switch/modbus-3/6
-    name: bath_room_1_fan
-    uid: modbus-3-6
-  /modbus/10.42.0.2:9761/3/7:
-    path: switch/modbus-3/7
     name: lobby_top
+    uid: modbus-3-6
+  /modbus/dev.serial.by-path.pci-0000:00:14.0-usb-0:5.1.1:1.0-port0/3/7:
+    path: switch/modbus-3/7
+    name: bath_room_1_fan
     uid: modbus-3-7
-  /modbus/10.42.0.2:9761/4/0:
+  /modbus/dev.serial.by-path.pci-0000:00:14.0-usb-0:5.1.2:1.0-port0/4/0:
     path: light/modbus-4/0
     name: hall_2_top_main
     uid: modbus-4-0
-  /modbus/10.42.0.2:9761/4/1:
+  /modbus/dev.serial.by-path.pci-0000:00:14.0-usb-0:5.1.2:1.0-port0/4/1:
     path: light/modbus-4/1
     name: hall_2_top_backlight
     uid: modbus-4-1
-  /modbus/10.42.0.2:9761/5/0:
+  /modbus/dev.serial.by-path.pci-0000:00:14.0-usb-0:5.1.2:1.0-port0/5/0:
     path: light/modbus-5/0
     name: hall_1_stairs
     uid: modbus-5-0
-  /internetaccess/192.168.42.83:
-    path: switch/internet/192-168-42-83
-    name: internet_phone_yehor
-    uid: internet-192.168.42.83
-  /internetaccess/192.168.42.62:
-    path: switch/internet/192-168-42-62
-    name: internet_desktop_yehor
-    uid: internet-192.168.42.62
-  /internetaccess/192.168.42.71:
-    path: switch/internet/192-168-42-71
-    name: internet_tablet_yehor
-    uid: internet-192.168.42.71
-  /internetaccess/192.168.42.53:
-    path: switch/internet/192-168-42-53
-    name: internet_notebook_yehor
-    uid: internet-192.168.42.53
-  /internetaccess/192.168.42.81:
-    path: switch/internet/192-168-42-81
-    name: internet_phone_stas
-    uid: internet-192.168.42.81
-  /internetaccess/192.168.42.61:
-    path: switch/internet/192-168-42-61
-    name: internet_desktop_stas
-    uid: internet-192.168.42.61
-  /internetaccess/192.168.42.51:
-    path: switch/internet/192-168-42-51
-    name: internet_notebook_stas
-    uid: internet-192.168.42.51
-  /internetaccess/192.168.42.91:
-    path: switch/internet/192-168-42-91
-    name: internet_watch_stas
-    uid: internet-192.168.42.91
-  /internetaccess/192.168.42.84:
-    path: switch/internet/192-168-42-84
-    name: internet_phone_lida
-    uid: internet-192.168.42.84
-  /internetaccess/192.168.42.54:
-    path: switch/internet/192-168-42-54
-    name: internet_notebook_lida
-    uid: internet-192.168.42.54
-  /internetaccess/192.168.42.72:
-    path: switch/internet/192-168-42-72
-    name: internet_tablet_kindle
-    uid: internet-192.168.42.72
-  /internetaccess/192.168.42.82:
-    path: switch/internet/192-168-42-82
-    name: internet_phone_sofia
-    uid: internet-192.168.42.82
   /internetaccess/192.168.42.56:
     path: switch/internet/192-168-42-56
-    name: internet_notebook_sofia
-    uid: internet-192.168.42.56
-  /internetaccess/192.168.42.85:
-    path: switch/internet/192-168-42-85
-    name: internet_phone_anna
-    uid: internet-192.168.42.85
-  /internetaccess/192.168.42.52:
-    path: switch/internet/192-168-42-52
-    name: internet_notebook_anna
-    uid: internet-192.168.42.52
-  /internetaccess/192.168.42.55:
-    path: switch/internet/192-168-42-55
-    name: internet_notebook_asus
-    uid: internet-192.168.42.55
-  /internetaccess/192.168.42.86:
-    path: switch/internet/192-168-42-86
-    name: internet_phone_gateway
-    uid: internet-192.168.42.86
-  /internetaccess/192.168.42.73:
-    path: switch/internet/192-168-42-73
-    name: internet_tablet_fridge
-    uid: internet-192.168.42.73
+    name: internet_nb_sofia
+    uid: internet-192.168.42.46
+  /internetaccess/192.168.42.74:
+    path: switch/internet/192-168-42-74
+    name: internet_tb_sofia
+    uid: internet-192.168.42.74
+  /internetaccess/192.168.42.82:
+    path: switch/internet/192-168-42-82
+    name: internet_ph_sofia
+    uid: internet-192.168.42.82
+
+#  /modbus/dev.serial.by-path.pci-0000:00:14.0-usb-0:5.1.1:1.0-port0/4:
+#    path: light/backlight-parents
+#    name: parents_room_backlight
+#    uid: parents_room_backlight
+#  /modbus/dev.serial.by-path.pci-0000:00:14.0-usb-0:5.1.1:1.0-port0/5:
+#    path: light/backlight-kitchen
+#    name: kitchen_backlight
+#    uid: kitchen_backlight
+#  /modbus/dev.serial.by-path.pci-0000:00:14.0-usb-0:5.1.1:1.0-port0/6:
+#    path: light/backlight-living-room
+#    name: living_room_backlight
+#    uid: living_room_backlight
